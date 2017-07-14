@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="movieSearchApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Angularjs Movie search application</title>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/tether/dist/js/tether.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+</head>
+<body ng-controller="movieSearchCtrl">
+<div class="container-fluid">
+    <img src="https://image.tmdb.org/t/p/w1280{{searchedMovieDetail.backdrop_path}}" alt="Backdrop image" class="backdropImage">
+    <div class="container-fluid p-3" style="color: #FFF">
+        <div class="row">
+            <div class="col-lg-12 input-group" style="margin-bottom: 15px;">
+                <input type="text" class="form-control searchBar" ng-model="movieName" ng-keypress="$event.keyCode === 13 && fetchMovies()" placeholder="Enter movie name">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            </div>
+        </div>
+            <div class="row" ng-show="isLoading">
+                <div class="col-lg-3">
+                    <img src="https://image.tmdb.org/t/p/w500{{searchedMovieDetail.poster_path}}" alt="Movie poster" class="poster">
+                </div>
+                <div class="col-lg-9">
+                    <h2>{{searchedMovieDetail.original_title}}</h2>
+                    <p>{{searchedMovieDetail.overview}}</p>
+                    <div>Runtime: {{searchedMovieDetail.runtime}} minutes</div>
+                    <div>Avarage Rating: {{searchedMovieDetail.vote_average.toFixed(1)}}</div>
+                    <div>Production Company: {{searchedMovieDetail.production_companies[0].name}}</div>
+                    <div>Relese Date: {{searchedMovieDetail.release_date}}</div>
+                    <h5 class="mt-3">Cast</h5>
+                    <img ng-repeat="actor in searchedMovieDetail.casts.cast | limitTo:8" ng-if="actor.profile_path" src="https://image.tmdb.org/t/p/w45{{actor.profile_path}}">
+
+                    <h5 class="mt-3">Trailers</h5>
+                    <a ng-repeat="trailer in searchedMovieDetail.videos.results | limitTo:4" ng-if="type==Trailer" href="https://youtube.com/watch?v={{trailer.key}}"> <img src="http://i.ytimg.com/vi/{{trailer.key}}/sddefault.jpg" class="trailers"></a>
+                </div>
+            </div>
+        </div>
+    <div ng-show="!isLoading" style="text-align: center">
+        <img src="https://loading.io/spinners/gear-set/lg.triple-gears-loading-icon.gif" alt="loading icon">
+    </div>
+</div>
+</body>
+</html>
