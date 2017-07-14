@@ -26,7 +26,7 @@
             <div class="col-lg-3">
                 <img src="https://image.tmdb.org/t/p/w500{{searchedMovieDetail.poster_path}}" alt="Movie poster" class="poster">
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-6">
                 <h2>{{searchedMovieDetail.original_title}}</h2>
                 <p>{{searchedMovieDetail.overview}}</p>
                 <div>Runtime: {{searchedMovieDetail.runtime}} minutes</div>
@@ -37,6 +37,11 @@
                 <img ng-repeat="actor in searchedMovieDetail.casts.cast | limitTo:8" ng-if="actor.profile_path" src="https://image.tmdb.org/t/p/w45{{actor.profile_path}}" class="cast-avatar" alt="{{actor.name}}" title="Name: {{actor.name}} Character: {{actor.character}}">
                 <h5 class="mt-3">Trailers</h5>
                 <a ng-repeat="trailer in searchedMovieDetail.videos.results | limitTo:4" ng-if="trailer.type=='Trailer'" href="https://youtube.com/watch?v={{trailer.key}}"> <img src="http://i.ytimg.com/vi/{{trailer.key}}/sddefault.jpg" class="trailers" alt="{{trailer.name}}" title="{{trailer.name}}"></a>
+            </div>
+            <div class="col-lg-3">
+                <strong>Related Results:</strong>
+                <div ng-repeat="relatedMovies in movies | limitTo:15" ng-if="relatedMovies.id !== searchedMovieDetail.id" ng-click="replaceWithRelatedMovie(relatedMovies.original_title)">{{relatedMovies.original_title}} - {{relatedMovies.release_date | date:'yyyy'}}</div>
+                <h3 ng-hide="movies.length > 1">Related movie not found</h3>
             </div>
         </div>
     </div>
