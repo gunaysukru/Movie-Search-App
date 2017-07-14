@@ -17,6 +17,17 @@
     min-height: 500px;
     margin-bottom: 15px
 }
+.cast-avatar{
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+    border: 2px solid #FFF;
+    box-sizing: border-box;
+    margin-right: 4px;
+}
+.cast-avatar:hover{
+    border-radius: 10px;
+}
 .trailers{
     width: 130px;
     height: 110px;
